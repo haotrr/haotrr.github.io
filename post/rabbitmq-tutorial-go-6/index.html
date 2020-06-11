@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>RabbitMQ 入门教程（六）- RPC - Haotrr</title>
+<meta name="description" content="A beautiful world you deserve.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link type='text/css' rel='stylesheet' href='https://haottr.github.io/styles/main.css' media='screen' />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/jquery.js'></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/go.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://haottr.github.io">
+								<img class="logo"
+									src="https://haottr.github.io/media/images/site_avatar.png?v=1591854930679"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="首页"
+										href="/">首页</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="榜单"
+										href="/post/the-best-of-the-best">榜单</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						<div class="item d-md-inline-block d-none" id="theme-dark-search">
+							<div class="search-icon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+
+
+
+						<div class="d-md-inline-block d-none">
+							<div class="search-lightbox">
+								<div class="search-body">
+
+									<form id="gridea-search-form" data-update="1591854930679" action="/search/"
+										class="search-form">
+										<input type="text" name="q" id="s" value="" class="search-field"
+											placeholder="请输入搜索关键词" aria-label="请输入搜索关键词" required="">
+										<button type="submit" class="submit" aria-label="Submit">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+						<div class="theme-toggle">
+							<i class="fa" id="theme-style" aria-hidden="true"></i>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="首页" href="/">首页</a></li>
+			
+			<li class="layout-collapse-item"><a title="榜单" href="/post/the-best-of-the-best">榜单</a></li>
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-9">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">RabbitMQ 入门教程（六）- RPC</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://haottr.github.io/tag/rabbitmq/" class="post--keyword"
+                                data-title="RabbitMQ" data-type="post_tag" data-term-id="39">RabbitMQ</a>
+                               <a href="https://haottr.github.io/tag/go/" class="post--keyword"
+                                data-title="Go" data-type="post_tag" data-term-id="39">Go</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2018-09-29</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            <!-- 
+                            <p class="with-img"><img src="http://img-haotrr.test.upcdn.net/blog/Greece6.jpg"
+                                class="attachment-full size-full wp-post-image" alt="RabbitMQ 入门教程（六）- RPC" /></p>
+                             -->
+                            <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第六篇，介绍如何使用 RabbitMQ 来构建一个 RPC 系统</p>
+<!-- more -->
+<p><a href="http://www.rabbitmq.com/tutorial-six-go.html">教程六 原文地址: &quot;Remote procedure call（RPC）&quot;</a></p>
+<p>在 <a href="/post/rabbitmq-tutorial-go-2/">教程二</a> 中我们已经掌握了如何使用工作队列在多个工作者中分发实时消费的任务。</p>
+<p>但是如果我们需要运行一个在远程机器上的函数然后等待它的运行结果呢？这就需要不同的技术了，这种模式通常被称作远程过程调用（Remote Procedure Call）或者 RPC。</p>
+<p>在本教程中，我们将使用 RabbitMQ 来构建一个 RPC 系统：包含一个客户端和一个可扩展的 RPC 服务器。目前我们手头上没有值得分发的实时消费的任务，所以我们创建一个伪造用于返回斐波纳契数字（Fibonacci Number）的 RPC 服务。</p>
+<h3 id="回调队列">回调队列</h3>
+<p>一般来说通过 RabbitMQ 来实现 RPC 是很简单的，客户端发送一个请求消息然后服务器返回一个响应消息。为了接收响应消息，我们需要在请求中增加一个回调（callback）队列地址。可以使用默认队列，我们一起来试一试：</p>
+<pre><code class="language-go">q, err := ch.QueueDeclare(
+  &quot;&quot;,    // name
+  false, // durable
+  false, // delete when usused
+  true,  // exclusive
+  false, // noWait
+  nil,   // arguments
+)
+
+err = ch.Publish(
+  &quot;&quot;,          // exchange
+  &quot;rpc_queue&quot;, // routing key
+  false,       // mandatory
+  false,       // immediate
+  amqp.Publishing{
+    ContentType:   &quot;text/plain&quot;,
+    CorrelationId: corrId,
+    ReplyTo:       q.Name,
+    Body:          []byte(strconv.Itoa(n)),
+})
+</code></pre>
+<h3 id="message-properties">Message properties</h3>
+<h3 id="关联-id">关联 ID</h3>
+<p>在上面的方法中，我们对每一个 RPC 请求都创建了一个回调队列，这样做效率相对低下，幸好我们还有更好的方式 -- 对每一个客户只创建一个回调队列。</p>
+<p>这样会造成一个新的问题，队列对接收到的响应消息属于哪一个请求并不清楚。这时就该轮到 correlation_id 派上用场了。对每个请求，我们都将关联 ID 设为唯一值，然后当我们从回调队列中接收一个消息时，我们将使用到这个属性，通过它，我们可以将响应消息匹配的请求。对于那些未知的关联 ID 值，我们只需简单地丢弃消息 -- 它们不属于我们发送的请求。</p>
+<p>你也许会问，我们为什么应该忽略回调队列中那些未知的消息而不是抛出一个错误？这是因为在服务端有可能出现竟态条件（race condition）。尽管不太常见，RPC 服务在发送一个响应消息之后但在发送一个确认消息给求情之前有可能会死掉，如果这种情况发生，重启 RPC 服务会重新处理请求，这就是为什么我们序啊哟优雅地处理重复响应的原因，RPC 应该是完全幂等的。</p>
+<h3 id="总结">总结</h3>
+<figure data-type="image" tabindex="1"><img src="http://img-haotrr.test.upcdn.net/blog/6-1-overall.png" alt="6-1-overall" loading="lazy"></figure>
+<p>我们的 RPC 看起来应该是这样子的：<br>
+客户机一旦启动，他就创建一个唯一匿名的回调队列。<br>
+对每一个 RPC 请求，客户端发送的消息都包含这两个属性：reply_to 用于设置回调队列；correlation_id 用于对每一个请求设置唯一值。<br>
+请求被发送到 rpc_queue 队列中。<br>
+RPC 工作者（服务器）从 rpc_queue 队列中等待请求，请求一旦出现，它便处理响应的工作并通过 reply_to 字段提供的队列返回一条包含结果的消息给客户端。<br>
+客户端通过回调队列等待接收数据。一旦响应消息出现，它便检查其 correlation_id 属性，如果匹配请求上的值便返回响应消息给对应的应用。</p>
+<h2 id="整合来看">整合来看</h2>
+<p>斐波纳契函数：</p>
+<pre><code class="language-golang">func fib(n int) int {
+        if n == 0 {
+                return 0
+        } else if n == 1 {
+                return 1
+        } else {
+                return fib(n-1) + fib(n-2)
+        }
+}
+</code></pre>
+<p>我们声明了一个斐波纳契函数，并假设正整数为合法输入。（不要指望它对大的整数有效，它有可能是最慢的递归实现了）。</p>
+<p>RPC 服务器的代码如下：</p>
+<pre><code class="language-go">package main
+
+import (
+        &quot;fmt&quot;
+        &quot;log&quot;
+        &quot;strconv&quot;
+
+        &quot;github.com/streadway/amqp&quot;
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf(&quot;%s: %s&quot;, msg, err)
+                panic(fmt.Sprintf(&quot;%s: %s&quot;, msg, err))
+        }
+}
+
+func fib(n int) int {
+        if n == 0 {
+                return 0
+        } else if n == 1 {
+                return 1
+        } else {
+                return fib(n-1) + fib(n-2)
+        }
+}
+
+func main() {
+        conn, err := amqp.Dial(&quot;amqp://guest:guest@localhost:5672/&quot;)
+        failOnError(err, &quot;Failed to connect to RabbitMQ&quot;)
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, &quot;Failed to open a channel&quot;)
+        defer ch.Close()
+
+        q, err := ch.QueueDeclare(
+                &quot;rpc_queue&quot;, // name
+                false,       // durable
+                false,       // delete when usused
+                false,       // exclusive
+                false,       // no-wait
+                nil,         // arguments
+        )
+        failOnError(err, &quot;Failed to declare a queue&quot;)
+
+        err = ch.Qos(
+                1,     // prefetch count
+                0,     // prefetch size
+                false, // global
+        )
+        failOnError(err, &quot;Failed to set QoS&quot;)
+
+        msgs, err := ch.Consume(
+                q.Name, // queue
+                &quot;&quot;,     // consumer
+                false,  // auto-ack
+                false,  // exclusive
+                false,  // no-local
+                false,  // no-wait
+                nil,    // args
+        )
+        failOnError(err, &quot;Failed to register a consumer&quot;)
+
+        forever := make(chan bool)
+
+        go func() {
+                for d := range msgs {
+                        n, err := strconv.Atoi(string(d.Body))
+                        failOnError(err, &quot;Failed to convert body to integer&quot;)
+
+                        log.Printf(&quot; [.] fib(%d)&quot;, n)
+                        response := fib(n)
+
+                        err = ch.Publish(
+                                &quot;&quot;,        // exchange
+                                d.ReplyTo, // routing key
+                                false,     // mandatory
+                                false,     // immediate
+                                amqp.Publishing{
+                                        ContentType:   &quot;text/plain&quot;,
+                                        CorrelationId: d.CorrelationId,
+                                        Body:          []byte(strconv.Itoa(response)),
+                                })
+                        failOnError(err, &quot;Failed to publish a message&quot;)
+
+                        d.Ack(false)
+                }
+        }()
+
+        log.Printf(&quot; [*] Awaiting RPC requests&quot;)
+        &lt;-forever
+}
+</code></pre>
+<p>服务端代码相当明了：<br>
+像之前那样我们从建立连接，创建信道和声明队列开始。<br>
+我们也许想要运行多个服务进程，为了均衡每个服务器的负载，我们需要在信道上设置 prefetch 属性。<br>
+我们使用 Channel.Consume 来获取 Go 中从队列中接收消息的信道。然后我们进入处理具体工作和返回响应的 gorountine。</p>
+<p>RPC 客户端的代码如下：</p>
+<pre><code class="language-go">package main
+
+import (
+        &quot;fmt&quot;
+        &quot;log&quot;
+        &quot;math/rand&quot;
+        &quot;os&quot;
+        &quot;strconv&quot;
+        &quot;strings&quot;
+        &quot;time&quot;
+
+        &quot;github.com/streadway/amqp&quot;
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf(&quot;%s: %s&quot;, msg, err)
+                panic(fmt.Sprintf(&quot;%s: %s&quot;, msg, err))
+        }
+}
+
+func randomString(l int) string {
+        bytes := make([]byte, l)
+        for i := 0; i &lt; l; i++ {
+                bytes[i] = byte(randInt(65, 90))
+        }
+        return string(bytes)
+}
+
+func randInt(min int, max int) int {
+        return min + rand.Intn(max-min)
+}
+
+func fibonacciRPC(n int) (res int, err error) {
+        conn, err := amqp.Dial(&quot;amqp://guest:guest@localhost:5672/&quot;)
+        failOnError(err, &quot;Failed to connect to RabbitMQ&quot;)
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, &quot;Failed to open a channel&quot;)
+        defer ch.Close()
+
+        q, err := ch.QueueDeclare(
+                &quot;&quot;,    // name
+                false, // durable
+                false, // delete when usused
+                true,  // exclusive
+                false, // noWait
+                nil,   // arguments
+        )
+        failOnError(err, &quot;Failed to declare a queue&quot;)
+
+        msgs, err := ch.Consume(
+                q.Name, // queue
+                &quot;&quot;,     // consumer
+                true,   // auto-ack
+                false,  // exclusive
+                false,  // no-local
+                false,  // no-wait
+                nil,    // args
+        )
+        failOnError(err, &quot;Failed to register a consumer&quot;)
+
+        corrId := randomString(32)
+
+        err = ch.Publish(
+                &quot;&quot;,          // exchange
+                &quot;rpc_queue&quot;, // routing key
+                false,       // mandatory
+                false,       // immediate
+                amqp.Publishing{
+                        ContentType:   &quot;text/plain&quot;,
+                        CorrelationId: corrId,
+                        ReplyTo:       q.Name,
+                        Body:          []byte(strconv.Itoa(n)),
+                })
+        failOnError(err, &quot;Failed to publish a message&quot;)
+
+        for d := range msgs {
+                if corrId == d.CorrelationId {
+                        res, err = strconv.Atoi(string(d.Body))
+                        failOnError(err, &quot;Failed to convert body to integer&quot;)
+                        break
+                }
+        }
+
+        return
+}
+
+func main() {
+        rand.Seed(time.Now().UTC().UnixNano())
+
+        n := bodyFrom(os.Args)
+
+        log.Printf(&quot; [x] Requesting fib(%d)&quot;, n)
+        res, err := fibonacciRPC(n)
+        failOnError(err, &quot;Failed to handle RPC request&quot;)
+
+        log.Printf(&quot; [.] Got %d&quot;, res)
+}
+
+func bodyFrom(args []string) int {
+        var s string
+        if (len(args) &lt; 2) || os.Args[1] == &quot;&quot; {
+                s = &quot;30&quot;
+        } else {
+                s = strings.Join(args[1:], &quot; &quot;)
+        }
+        n, err := strconv.Atoi(s)
+        failOnError(err, &quot;Failed to convert arg to integer&quot;)
+        return n
+}
+</code></pre>
+<p>现在是时候好好看一看整个例子的源代码了： <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_server.go">rpc_server.go</a> 和 <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/rpc_client.go">rpc_client.go</a> 。</p>
+<p>RPC 服务现在已经就位，我们可以开始运行：</p>
+<pre><code class="language-sh">go run rpc_server.go
+# =&gt; [x] Awaiting RPC requests
+</code></pre>
+<p>请求一个斐波纳契数字，运行客户端：</p>
+<pre><code class="language-sh">go run rpc_client.go 30
+# =&gt; [x] Requesting fib(30)
+</code></pre>
+<p>上面展示的程序不是 RPC 服务的唯一实现，但其有几个很重要的优势：</p>
+<ul>
+<li>如果 RPC 服务器太慢，可以通过增加另外一个服务实例来扩展，请尝试在新的终端运行第二个 rpc_server.go。</li>
+<li>对于客户端，RPC 只需发送和接收一个消息，最终，RPC 客户端对每个 RPC 请求只需要一个网络循环。</li>
+</ul>
+<p>我们的代码仍然相当简单，但是不要试图用它来解决更加复杂（但很重要）的问题，比如：</p>
+<ul>
+<li>如果没有服务程序在运行，客户端该怎样反应？</li>
+<li>RPC 客户端是否需要某种超时机制？</li>
+<li>如果服务器失灵并且抛出异常，应该返回给客户端吗？</li>
+<li>在处理接消息之前对其进行保护（如检查边界，类型等）以免处理了非法的信息。</li>
+</ul>
+<blockquote>
+<p>如果想要更加深入地探究，你会发现 <a href="https://www.rabbitmq.com/management.html">management UI</a> 对查看队列非常有用。</p>
+</blockquote>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/rabbitmq-tutorial-go-6/" class="leancloud-visitors view"
+                              data-flag-title="RabbitMQ 入门教程（六）- RPC">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://haottr.github.io/post/2018-and-me/" class="title">
+                                      <h4>2018 与我</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <p>感谢微博这一年来记录下了我的所思所想，今年用几条微博来回顾我的 2018。</p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2018-12-31</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://haottr.github.io/post/2018-and-me/"
+                                    style="background-image: url('http://img-haotrr.test.upcdn.net/blog/T1THhTBXbT1RCvBVdK.jpeg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-5/" class="title">
+                                      <h4>RabbitMQ 入门教程（五）- 主题交换机</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第五篇，介绍 RabbitMQ 中较复杂但非常实用的 topic 交换机。</p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2018-09-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-5/"
+                                    style="background-image: url('http://img-haotrr.test.upcdn.net/blog/Greece5.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments"></div>
+                        
+                        <script type="text/javascript" src='https://haottr.github.io/media/scripts/zan.js'></script>
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/av-min.js'></script>
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/Valine.min.js'></script>
+
+<script>
+  var valine = new Valine();
+  valine.init({
+    el: '.layout-comments',
+    appId: 'kyaFrbniElwRf2iVD1a5ts2y-gzGzoHsz',
+    appKey: 'Vjt2F1yKTk5BgEWtCPO4FukL',
+    notify: false,
+    verify: false,
+    visitor: true,
+    avatar: 'mp',
+    placeholder: '加入讨论...'
+  })
+</script>
+                        
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%9B%9E%E8%B0%83%E9%98%9F%E5%88%97">回调队列</a></li>
+<li><a href="#message-properties">Message properties</a></li>
+<li><a href="#%E5%85%B3%E8%81%94-id">关联 ID</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B4%E5%90%88%E6%9D%A5%E7%9C%8B">整合来看</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    <div class="layout-footer">
+
+	<div class="container">
+		<div class="row justify-content-lg-center">
+			<div class="col-12 col-lg-9">
+				<div class="footer">
+					<div class="row">
+						<div class="col-12 col-md-9">
+							<div class="footer-copy">
+								
+								© 2015-2020 Haotrr<span class="px-2">⋅</span>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> & Theme <a href="https://github.com/insdram/gridea-theme-vant">Vant</a> & Pics <a href="https://www.upyun.com/">UpYun</a>
+								<div class="footer-icp d-none d-sm-inline-block">
+									<span class="px-2">⋅</span>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3 d-none d-md-block">
+							<div class="footer-links">
+								
+								
+								<span class="px-2">⋅</span>
+								<span class="footer-links-item">
+									<a href="https://twitter.com/haotrr" target="_blank">
+										<i class="fa fa-twitter" aria-hidden="true"></i>
+									</a>
+								</span>
+								
+								
+								
+								<span class="px-2">⋅</span>
+								<span class="footer-links-item">
+									<a href="https://github.com/haotrr" target="_blank">
+										<i class="fa fa-github" aria-hidden="true"></i>
+									</a>
+								</span>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/main.js'></script>
+
+
+  </div>
+</body>
+<!-- 更进一步的拿来主义，这段代码及一定的 CSS 样式拷贝自 Gridea 的 Next 主题：https://github.com/hsxyhao/gridea-theme-next，😺 -->
+<script>
+  // 拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    // 创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    // 选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+
+</html>

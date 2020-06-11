@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>RabbitMQ 入门教程（五）- 主题交换机 - Haotrr</title>
+<meta name="description" content="A beautiful world you deserve.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link type='text/css' rel='stylesheet' href='https://haottr.github.io/styles/main.css' media='screen' />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/jquery.js'></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/go.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://haottr.github.io">
+								<img class="logo"
+									src="https://haottr.github.io/media/images/site_avatar.png?v=1591854930679"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="首页"
+										href="/">首页</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="榜单"
+										href="/post/the-best-of-the-best">榜单</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						<div class="item d-md-inline-block d-none" id="theme-dark-search">
+							<div class="search-icon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+
+
+
+						<div class="d-md-inline-block d-none">
+							<div class="search-lightbox">
+								<div class="search-body">
+
+									<form id="gridea-search-form" data-update="1591854930679" action="/search/"
+										class="search-form">
+										<input type="text" name="q" id="s" value="" class="search-field"
+											placeholder="请输入搜索关键词" aria-label="请输入搜索关键词" required="">
+										<button type="submit" class="submit" aria-label="Submit">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+						<div class="theme-toggle">
+							<i class="fa" id="theme-style" aria-hidden="true"></i>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="首页" href="/">首页</a></li>
+			
+			<li class="layout-collapse-item"><a title="榜单" href="/post/the-best-of-the-best">榜单</a></li>
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-9">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">RabbitMQ 入门教程（五）- 主题交换机</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://haottr.github.io/tag/rabbitmq/" class="post--keyword"
+                                data-title="RabbitMQ" data-type="post_tag" data-term-id="39">RabbitMQ</a>
+                               <a href="https://haottr.github.io/tag/go/" class="post--keyword"
+                                data-title="Go" data-type="post_tag" data-term-id="39">Go</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2018-09-29</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            <!-- 
+                            <p class="with-img"><img src="http://img-haotrr.test.upcdn.net/blog/Greece5.jpg"
+                                class="attachment-full size-full wp-post-image" alt="RabbitMQ 入门教程（五）- 主题交换机" /></p>
+                             -->
+                            <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第五篇，介绍 RabbitMQ 中较复杂但非常实用的 topic 交换机。</p>
+<!-- more -->
+<p><a href="http://www.rabbitmq.com/tutorial-five-go.html">教程五 原文地址: &quot;Topics&quot;</a></p>
+<p>在 <a href="/post/rabbitmq-tutorial-go-4/">教程四</a> 中我们改善了日志系统，为了伪造出广播功能，我们使用 direct 交换机来替换 fanout 交换机，同时我们获得了选择性接收日志的能力。</p>
+<p>尽管使用 direct 交换机提升了我们的系统，但它仍有限制 -- 无法基于多个条件来路由。</p>
+<p>在我们的日志系统中，我们可能不仅仅想要基于日志严重级别来，而且同时可以几乎发送日志的来源来订阅。你此前可能了解过同时基于日志严重级别（info/warn/crit..）和设备（auth/cron/kern...）的 Unix 工具 syslog。</p>
+<p>这样能够给我们提供更多的灵活性 -- 我们也许只想要监听那些来之 cron 严重的错误日志和来自 kern 的所有日志。</p>
+<p>为了实现这样的日志系统，我们需要了解更加复杂的 topic 交换机。</p>
+<h2 id="topic-交换机">Topic 交换机</h2>
+<p>发送至 topic 交换机的消息不是使用任意字符的 <code>routing_key</code> -- 而是必须是一串使用点符号（.）分隔的单词。这些单词可以是任何字符串，但通常描述了消息的某种特性，合理的路由规则如：“stock.usd.nyse”，“nyse.vmw”，“quick.orange.rabbit” 等等。可以在路由规则中使用任意多个单词，但每个单词的长度上限为 255 字节。</p>
+<p>绑定规则必须与路由规则相同，因为 topic 交换机背后的逻辑和 direct 交换机背后的逻辑一样 -- 发送给交换机的带有特定路由规则的消息会被投递到所有与绑定规则匹配的队列中。然而，对绑定规则有如下两个特殊情况：</p>
+<ul>
+<li>（star）可以替代一个单词</li>
+<li>（hash）可以替代零个或多个单词</li>
+</ul>
+<p>最好通过实例来解释：</p>
+<figure data-type="image" tabindex="1"><img src="http://img-haotrr.test.upcdn.net/blog/5-1-overall.png" alt="5-1-overall" loading="lazy"></figure>
+<p>在上面的例子中，我们发送的消息都是用于描述动物的，这些待发送的消息的路由规则都包含三个单词（两个点），路由规则的第一个单词描述速度，第二个描述颜色，第三个描述物种：“<speed>.<colour>.<species>”。</p>
+<p>同时创建三个绑定：Q1 使用路由规则 <em>.orange.</em> 绑定，Q2 使用路由规则 <em>.</em>.rabbit 和 lazy.#。</p>
+<p>这些绑定可以概括为：</p>
+<ul>
+<li>Q1 对所有橘色的动物的消息感兴趣</li>
+<li>Q2 想要获取所有关于兔子的和所有跑得慢的动物的消息</li>
+</ul>
+<p>一个路由规则为 quick.orange.rabbit 的消息会被同时投递到两个队列中，路由规则为 lazy.orange.elephant 的消息也是一样。另一方面，路由规则为 quick.orange.fox 的消息会被投递到第一个队列中，路由规则为 lazy.brown.fox 的消息只会被投递到第二个队列中。路由规则为 lazy.pink.rabbit 的消息只会被投递到第二个队列中一次，尽管它同时匹配两个绑定。路由规则为 quick.brown.fox 不匹配任何绑定，所以会被丢弃。</p>
+<p>如果我们打破上面的规则，发送路由规则为有一个或四个单词的诸如 orange 和 quick.orange.male.rabbit 这样的消息会怎样呢？情况是，这些消息不会被任何绑定匹配从而被丢弃。</p>
+<p>另外一方面，路由规则为诸如 lazy.orange.male.rabbit 这样的消息尽管有四个单词，它仍然会匹配最后一个绑定从而被投递到第二个队列。</p>
+<h2 id="note">note</h2>
+<h2 id="整体来看">整体来看</h2>
+<p>我们将在日志系统中使用 topic 交换机，并一开始就假设日志消息的路由规则包含两个单词：<facility>.<severity></p>
+<p>代码几乎与上一篇教程一模一样。</p>
+<p><code>emit_log_topic.go</code> 文件中的代码如下：</p>
+<pre><code class="language-go">package main
+
+import (
+        &quot;fmt&quot;
+        &quot;log&quot;
+        &quot;os&quot;
+        &quot;strings&quot;
+
+        &quot;github.com/streadway/amqp&quot;
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf(&quot;%s: %s&quot;, msg, err)
+                panic(fmt.Sprintf(&quot;%s: %s&quot;, msg, err))
+        }
+}
+
+func main() {
+        conn, err := amqp.Dial(&quot;amqp://guest:guest@localhost:5672/&quot;)
+        failOnError(err, &quot;Failed to connect to RabbitMQ&quot;)
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, &quot;Failed to open a channel&quot;)
+        defer ch.Close()
+
+        err = ch.ExchangeDeclare(
+                &quot;logs_topic&quot;, // name
+                &quot;topic&quot;,      // type
+                true,         // durable
+                false,        // auto-deleted
+                false,        // internal
+                false,        // no-wait
+                nil,          // arguments
+        )
+        failOnError(err, &quot;Failed to declare an exchange&quot;)
+
+        body := bodyFrom(os.Args)
+        err = ch.Publish(
+                &quot;logs_topic&quot;,          // exchange
+                severityFrom(os.Args), // routing key
+                false, // mandatory
+                false, // immediate
+                amqp.Publishing{
+                        ContentType: &quot;text/plain&quot;,
+                        Body:        []byte(body),
+                })
+        failOnError(err, &quot;Failed to publish a message&quot;)
+
+        log.Printf(&quot; [x] Sent %s&quot;, body)
+}
+
+func bodyFrom(args []string) string {
+        var s string
+        if (len(args) &lt; 3) || os.Args[2] == &quot;&quot; {
+                s = &quot;hello&quot;
+        } else {
+                s = strings.Join(args[2:], &quot; &quot;)
+        }
+        return s
+}
+
+func severityFrom(args []string) string {
+        var s string
+        if (len(args) &lt; 2) || os.Args[1] == &quot;&quot; {
+                s = &quot;anonymous.info&quot;
+        } else {
+                s = os.Args[1]
+        }
+        return s
+}
+</code></pre>
+<p><code>receive_logs_topic.go</code> 文件中的代码：</p>
+<pre><code class="language-go">package main
+
+import (
+        &quot;fmt&quot;
+        &quot;log&quot;
+        &quot;os&quot;
+
+        &quot;github.com/streadway/amqp&quot;
+)
+
+func failOnError(err error, msg string) {
+        if err != nil {
+                log.Fatalf(&quot;%s: %s&quot;, msg, err)
+                panic(fmt.Sprintf(&quot;%s: %s&quot;, msg, err))
+        }
+}
+
+func main() {
+        conn, err := amqp.Dial(&quot;amqp://guest:guest@localhost:5672/&quot;)
+        failOnError(err, &quot;Failed to connect to RabbitMQ&quot;)
+        defer conn.Close()
+
+        ch, err := conn.Channel()
+        failOnError(err, &quot;Failed to open a channel&quot;)
+        defer ch.Close()
+
+        err = ch.ExchangeDeclare(
+                &quot;logs_topic&quot;, // name
+                &quot;topic&quot;,      // type
+                true,         // durable
+                false,        // auto-deleted
+                false,        // internal
+                false,        // no-wait
+                nil,          // arguments
+        )
+        failOnError(err, &quot;Failed to declare an exchange&quot;)
+
+        q, err := ch.QueueDeclare(
+                &quot;&quot;,    // name
+                false, // durable
+                false, // delete when usused
+                true,  // exclusive
+                false, // no-wait
+                nil,   // arguments
+        )
+        failOnError(err, &quot;Failed to declare a queue&quot;)
+
+        if len(os.Args) &lt; 2 {
+                log.Printf(&quot;Usage: %s [binding_key]...&quot;, os.Args[0])
+                os.Exit(0)
+        }
+        for _, s := range os.Args[1:] {
+                log.Printf(&quot;Binding queue %s to exchange %s with routing key %s&quot;,
+                        q.Name, &quot;logs_topic&quot;, s)
+                err = ch.QueueBind(
+                        q.Name,       // queue name
+                        s,            // routing key
+                        &quot;logs_topic&quot;, // exchange
+                        false,
+                        nil)
+                failOnError(err, &quot;Failed to bind a queue&quot;)
+        }
+
+        msgs, err := ch.Consume(
+                q.Name, // queue
+                &quot;&quot;,     // consumer
+                true,   // auto ack
+                false,  // exclusive
+                false,  // no local
+                false,  // no wait
+                nil,    // args
+        )
+        failOnError(err, &quot;Failed to register a consumer&quot;)
+
+        forever := make(chan bool)
+
+        go func() {
+                for d := range msgs {
+                        log.Printf(&quot; [x] %s&quot;, d.Body)
+                }
+        }()
+
+        log.Printf(&quot; [*] Waiting for logs. To exit press CTRL+C&quot;)
+        &lt;-forever
+}
+</code></pre>
+<p>接收所有日志：</p>
+<pre><code class="language-sh">go run receive_logs_topic.go &quot;#&quot;
+</code></pre>
+<p>从 kern 设备接收所有日志：</p>
+<pre><code class="language-sh">go run receive_logs_topic.go &quot;kern.*&quot;
+</code></pre>
+<p>或者只想要接收严重级别（critical）的日志：</p>
+<pre><code class="language-sh">go run receive_logs_topic.go &quot;*.critical&quot;
+</code></pre>
+<p>也可以创建多个绑定：</p>
+<pre><code class="language-sh">go run receive_logs_topic.go &quot;kern.*&quot; &quot;*.critical&quot;
+</code></pre>
+<p>发送一条如有规则为 kern.critical 的消息：</p>
+<pre><code class="language-sh">go run emit_log_topic.go &quot;kern.critical&quot; &quot;A critical kernel error&quot;
+</code></pre>
+<p>请尽情地探究这些程序的玩法。既然代码中并没有对路由规则或绑定规则做任何假设，你可以尝试使用超过两个以上的路由规则参数。</p>
+<p>完整的代码文件参见 <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/emit_log_topic.go">emit_log_topic.go</a> 和 <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive_logs_topic.go">receive_logs_topic.go</a></p>
+<p>下一步，在 <a href="/post/rabbitmq-tutorial-go-6/">教程六</a> 中我们将探究发送作为远程调用过程的循环消息。</p>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/rabbitmq-tutorial-go-5/" class="leancloud-visitors view"
+                              data-flag-title="RabbitMQ 入门教程（五）- 主题交换机">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-6/" class="title">
+                                      <h4>RabbitMQ 入门教程（六）- RPC</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第六篇，介绍如何使用 RabbitMQ 来构建一个 RPC 系统</p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2018-09-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-6/"
+                                    style="background-image: url('http://img-haotrr.test.upcdn.net/blog/Greece6.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-4/" class="title">
+                                      <h4>RabbitMQ 入门教程（四）- 路由绑定</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第四篇，介绍如何对 RabbitMQ 进行路由绑定。</p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2018-09-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-4/"
+                                    style="background-image: url('http://img-haotrr.test.upcdn.net/blog/Greece4.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments"></div>
+                        
+                        <script type="text/javascript" src='https://haottr.github.io/media/scripts/zan.js'></script>
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/av-min.js'></script>
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/Valine.min.js'></script>
+
+<script>
+  var valine = new Valine();
+  valine.init({
+    el: '.layout-comments',
+    appId: 'kyaFrbniElwRf2iVD1a5ts2y-gzGzoHsz',
+    appKey: 'Vjt2F1yKTk5BgEWtCPO4FukL',
+    notify: false,
+    verify: false,
+    visitor: true,
+    avatar: 'mp',
+    placeholder: '加入讨论...'
+  })
+</script>
+                        
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#topic-%E4%BA%A4%E6%8D%A2%E6%9C%BA">Topic 交换机</a></li>
+<li><a href="#note">note</a></li>
+<li><a href="#%E6%95%B4%E4%BD%93%E6%9D%A5%E7%9C%8B">整体来看</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    <div class="layout-footer">
+
+	<div class="container">
+		<div class="row justify-content-lg-center">
+			<div class="col-12 col-lg-9">
+				<div class="footer">
+					<div class="row">
+						<div class="col-12 col-md-9">
+							<div class="footer-copy">
+								
+								© 2015-2020 Haotrr<span class="px-2">⋅</span>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> & Theme <a href="https://github.com/insdram/gridea-theme-vant">Vant</a> & Pics <a href="https://www.upyun.com/">UpYun</a>
+								<div class="footer-icp d-none d-sm-inline-block">
+									<span class="px-2">⋅</span>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3 d-none d-md-block">
+							<div class="footer-links">
+								
+								
+								<span class="px-2">⋅</span>
+								<span class="footer-links-item">
+									<a href="https://twitter.com/haotrr" target="_blank">
+										<i class="fa fa-twitter" aria-hidden="true"></i>
+									</a>
+								</span>
+								
+								
+								
+								<span class="px-2">⋅</span>
+								<span class="footer-links-item">
+									<a href="https://github.com/haotrr" target="_blank">
+										<i class="fa fa-github" aria-hidden="true"></i>
+									</a>
+								</span>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/main.js'></script>
+
+
+  </div>
+</body>
+<!-- 更进一步的拿来主义，这段代码及一定的 CSS 样式拷贝自 Gridea 的 Next 主题：https://github.com/hsxyhao/gridea-theme-next，😺 -->
+<script>
+  // 拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    // 创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    // 选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+
+</html>

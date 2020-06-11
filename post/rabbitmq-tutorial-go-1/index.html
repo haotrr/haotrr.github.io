@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+<title>RabbitMQ 入门教程（一）- &#34;Hello World!&#34; - Haotrr</title>
+<meta name="description" content="A beautiful world you deserve.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link type='text/css' rel='stylesheet' href='https://haottr.github.io/styles/main.css' media='screen' />
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css">
+<link type="text/css" rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/jquery.js'></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/go.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+
+<body>
+  <div class="layout">
+    <div class="layout-header">
+
+	<div class="layout-header-main">
+		<div class="container">
+			<div class="row justify-content-lg-center">
+				<div class="col-12 col-lg-9">
+
+					<div class="navbar">
+
+						<div class="logo">
+							<a href="https://haottr.github.io">
+								<img class="logo"
+									src="https://haottr.github.io/media/images/site_avatar.png?v=1591854930679"
+									alt="">
+							</a>
+						</div>
+
+						<div class="menu d-md-inline-block d-none">
+							<ul class="layout-navigation-list">
+								
+								<li class="layout-navigation-item"><a title="首页"
+										href="/">首页</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="榜单"
+										href="/post/the-best-of-the-best">榜单</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="归档"
+										href="/archives">归档</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="标签"
+										href="/tags">标签</a>
+								</li>
+								
+								<li class="layout-navigation-item"><a title="关于"
+										href="/post/about">关于</a>
+								</li>
+								
+							</ul>
+						</div>
+
+						<div class="item d-md-inline-block d-none" id="theme-dark-search">
+							<div class="search-icon">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</div>
+						</div>
+
+
+
+						<div class="d-md-inline-block d-none">
+							<div class="search-lightbox">
+								<div class="search-body">
+
+									<form id="gridea-search-form" data-update="1591854930679" action="/search/"
+										class="search-form">
+										<input type="text" name="q" id="s" value="" class="search-field"
+											placeholder="请输入搜索关键词" aria-label="请输入搜索关键词" required="">
+										<button type="submit" class="submit" aria-label="Submit">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+
+						<div class="nav d-md-none d-inline-block">
+							<div class="trigger">
+								<i class="fa fa-bars layout-btn-toggle" aria-hidden="true"></i>
+							</div>
+						</div>
+
+						<div class="theme-toggle">
+							<i class="fa" id="theme-style" aria-hidden="true"></i>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+
+</div>
+    <div class="layout-collapse d-md-none">
+	<div class="layout-collapse-main">
+		<ul class="layout-collapse-list">
+			
+			<li class="layout-collapse-item"><a title="首页" href="/">首页</a></li>
+			
+			<li class="layout-collapse-item"><a title="榜单" href="/post/the-best-of-the-best">榜单</a></li>
+			
+			<li class="layout-collapse-item"><a title="归档" href="/archives">归档</a></li>
+			
+			<li class="layout-collapse-item"><a title="标签" href="/tags">标签</a></li>
+			
+			<li class="layout-collapse-item"><a title="关于" href="/post/about">关于</a></li>
+			
+
+		</ul>
+	</div>
+</div>
+
+    <div class="layout-content">
+      <div class="layout-content-main">
+        <div class="container">
+          <div class="row justify-content-lg-center">
+            <div class="col-12 col-lg-9">
+              <div class="layout-post">
+                <div class="layout-post-body">
+                  <div class="row">
+
+                    <div class="col-12 col-lg-9">
+                      <div class="layout-post-main m-right m-md-right">
+                        <div class="layout-post-header">
+                          <h1 class="layout-post-title">RabbitMQ 入门教程（一）- &#34;Hello World!&#34;</h1>
+                          <div class="layout-post-meta">
+                            <div class="item">
+                               <a href="https://haottr.github.io/tag/rabbitmq/" class="post--keyword"
+                                data-title="RabbitMQ" data-type="post_tag" data-term-id="39">RabbitMQ</a>
+                               <a href="https://haottr.github.io/tag/go/" class="post--keyword"
+                                data-title="Go" data-type="post_tag" data-term-id="39">Go</a>
+                              
+                            </div>
+                            <div class="item">
+                              <span>2018-09-29</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="layout-post-content">
+                          <div class="layout-post-item">
+                            <!-- 
+                            <p class="with-img"><img src="http://img-haotrr.test.upcdn.net/blog/Greece1.png"
+                                class="attachment-full size-full wp-post-image" alt="RabbitMQ 入门教程（一）- &#34;Hello World!&#34;" /></p>
+                             -->
+                            <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第一篇，简单介绍 RabbitMQ 最基本的生产-消费者模式。</p>
+<!-- more -->
+<p><a href="http://www.rabbitmq.com/tutorial-one-go.html">教程一 原文地址: &quot;Hello World!&quot;</a></p>
+<h2 id="介绍">介绍</h2>
+<p>RabbitMQ 是一个消息代理：接收然后投递消息。你可以把它看做一个邮局：你把你想要寄送的邮件投递到邮箱里，显然邮递员最终会将你的邮件投递到收件人手上。类似地，RabbitMQ 就像是一个邮箱，一个邮局或者一个邮递员。</p>
+<p>RabbitMQ 与邮局的最大的区别在于，RabbitMQ 不处理信件而是接收、储存和传递二进制数据 -- 消息。</p>
+<p>RabbitMQ，或者更一般的消息，使用了一些专业术语。</p>
+<blockquote>
+<p><code>生产</code>代指发送，一个发送消息的应用程序则被称为<code>生产者</code>。</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="http://img-haotrr.test.upcdn.net/blog/1-1-producer.png" alt="1-1-producer.png" loading="lazy"></figure>
+<blockquote>
+<p>一个<code>队列</code>像是 RabbitMQ 里面的一个邮箱。尽管消息通过 RabbitMQ 在你的应用间相互传递，但消息只能保存在<code>队列</code>中。一个<code>队列</code>大小只受限于主机的内存和磁盘大小，它本质上是一个大的消息缓存。不同的<code>生产者</code>可以将消息发送到同一个队列，不同的<code>消费者</code>也可以从同一队列获取数据。以下图示代表了一个队列。</p>
+</blockquote>
+<figure data-type="image" tabindex="2"><img src="http://img-haotrr.test.upcdn.net/blog/1-2-queue.png" alt="1-2-queue.png" loading="lazy"></figure>
+<blockquote>
+<p><code>消费</code>代指接收，<code>消费者</code>指的是一个等待接收消息的应用程序。</p>
+</blockquote>
+<figure data-type="image" tabindex="3"><img src="http://img-haotrr.test.upcdn.net/blog/1-3-consumer.png" alt="1-3-consumer.png" loading="lazy"></figure>
+<p>注意生产者、消费者和消息代理不一定需要存在于同一台主机上，且对大部分应用程序来说，这才是常态。一个应用程序有可能既是生成者，也是消费者。</p>
+<h2 id="hello-world">“Hello World”</h2>
+<p>本教程中，我们使用 Go 编写两个小程序：一个生产者程序用于发送一条简单的消息，一个消费者程序接收信息并将其打印。作为开始，我们将跳过 <a href="https://godoc.org/github.com/streadway/amqp">Go RabbitMQ</a> API 的阐述, 将主要集中精力在简单的事情上：发送一条 “Hello World” 的消息。</p>
+<p>在下面的图示中，“P” 代表生产者，“C” 代表消费者，中间的盒子代表一个队列 -- RabbitMQ 中为消费者保存消息的消息缓存。</p>
+<figure data-type="image" tabindex="4"><img src="http://img-haotrr.test.upcdn.net/blog/1-4-p-q-c-model.png" alt="1-4-p-q-c-model.png" loading="lazy"></figure>
+<blockquote>
+<p>Note:</p>
+<p><strong>Go RabbitMQ 客户端库</strong></p>
+<p>RabbitMQ 提供多种协议。本教程中使用开源、general-purpose 消息通信协议 AMQP 0-9-1。RabbitMQ 在页面 <a href="http://rabbitmq.com/devtools.html">RabbitMQ - Clients &amp; Developer Tools</a> 提供了一系列语言的客户端库。本教程中，我们使用 Go AMQP 客户端库。</p>
+<p>使用 <code>go get</code> 安装 AMQP Go 客户端库：</p>
+<pre><code class="language-go">go get github.com/streadway/amqp
+</code></pre>
+</blockquote>
+<p>安装好 AMQP 客户端库后，我们便可以写代码了。</p>
+<h2 id="发送">发送</h2>
+<figure data-type="image" tabindex="5"><img src="http://img-haotrr.test.upcdn.net/blog/1-5-sending.png" alt="1-5-sending.png" loading="lazy"></figure>
+<p>我们将消息的发布者（发送者）命名为 <code>seng.go</code>，将消息的消费者（接收者）命名为 <code>receive.go</code>。发布者会连接到 RabbitMQ，发送一条消息，然后退出。</p>
+<p>在 <code>send.go</code> 中，我们首先导入相关包：</p>
+<pre><code class="language-go">package main
+
+import (
+  &quot;fmt&quot;
+  &quot;log&quot;
+
+  &quot;github.com/streadway/amqp&quot;
+)
+</code></pre>
+<p>接着，我们声明一个用于检查每一次 AMQP 库函数调用返回值的辅助函数：</p>
+<pre><code class="language-go">func failOnError(err error, msg string) {
+  if err != nil {
+    log.Fatalf(&quot;%s: %s&quot;, msg, err)
+    panic(fmt.Sprintf(&quot;%s: %s&quot;, msg, err))
+  }
+}
+</code></pre>
+<p>然后，连接 RabbitMQ 服务器：</p>
+<pre><code class="language-go">conn, err := amqp.Dial(&quot;amqp://guest:guest@localhost:5672/&quot;)
+failOnError(err, &quot;Failed to connect to RabbitMQ&quot;)
+defer conn.Close()
+</code></pre>
+<p>上面代码中的连接封装了 Socket 连接，将诸如协议本版、协议握手、身份认证等细节隐藏了。接下来，我们创建一个信道，我们所有的 API 调用都将基于信道：</p>
+<pre><code class="language-go">ch, err := conn.Channel()
+failOnError(err, &quot;Failed to open a channel&quot;)
+defer ch.Close()
+</code></pre>
+<p>为了发送消息，我们还必须声明一个消息将要发往的队列，这样我们才能将消息发送到队列中：</p>
+<pre><code class="language-go">q, err := ch.QueueDeclare(
+  &quot;hello&quot;, // name
+  false,   // durable
+  false,   // delete when unused
+  false,   // exclusive
+  false,   // no-wait
+  nil,     // arguments
+)
+failOnError(err, &quot;Failed to declare a queue&quot;)
+
+body := &quot;hello&quot;
+err = ch.Publish(
+  &quot;&quot;,     // exchange
+  q.Name, // routing key
+  false,  // mandatory
+  false,  // immediate
+  amqp.Publishing {
+    ContentType: &quot;text/plain&quot;,
+    Body:        []byte(body),
+  })
+failOnError(err, &quot;Failed to publish a message&quot;)
+</code></pre>
+<p>声明一个队列时幂等的 -- 只有当队列不存在的时候，才会去创建这个队列。消息内容是一个字节数组（byte array），这样我们就能将任何想要的数据编码在里面了。</p>
+<p>这里是完整的 <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/send.go">send.go</a> 文件。</p>
+<blockquote>
+<p>Note:</p>
+<p><strong>发送并没有成功！</strong></p>
+<p>如果这是你第一次使用 RabbitMQ 并且没有看到“发送”出去的消息，你可能会想是不是哪里出现了错误。可能的原因是消息代理启动的时候没有分配到做够的磁盘空间（默认情况下至少需要 200 MB ）从而无法接收消息。检查消息代理的日志确认或者必要时增大限制值。页面 <a href="https://www.rabbitmq.com/configure.html#config-items">RabbitMQ - RabbitMQ Configuration</a> 展示了如何修改 <code>disk_free_limit</code> 的值。</p>
+</blockquote>
+<h2 id="接收">接收</h2>
+<p>以上就是一个完整的发布者。而消费者将从 RabbitMQ 拉取消息，所以不像发布者那样发送一条消息，消费者将一直监听消息并将其打印出来。</p>
+<figure data-type="image" tabindex="6"><img src="http://img-haotrr.test.upcdn.net/blog/1-6-receiving.png" alt="1-6-receiving.png" loading="lazy"></figure>
+<p><a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go">receive.go</a> 代码中与 send 中有相同的导入和帮助函数：</p>
+<pre><code class="language-go">package main
+
+import (
+  &quot;fmt&quot;
+  &quot;log&quot;
+
+  &quot;github.com/streadway/amqp&quot;
+)
+
+func failOnError(err error, msg string) {
+  if err != nil {
+    log.Fatalf(&quot;%s: %s&quot;, msg, err)
+    panic(fmt.Sprintf(&quot;%s: %s&quot;, msg, err))
+  }
+}
+</code></pre>
+<p>与生产者的设置一样，我们依同样建立连接和打开信道，然后在声明一个要消费的队列。注意我们需要声明一个与 send 中发布消息匹配的队列：</p>
+<pre><code class="language-go">conn, err := amqp.Dial(&quot;amqp://guest:guest@localhost:5672/&quot;)
+failOnError(err, &quot;Failed to connect to RabbitMQ&quot;)
+defer conn.Close()
+
+ch, err := conn.Channel()
+failOnError(err, &quot;Failed to open a channel&quot;)
+defer ch.Close()
+
+q, err := ch.QueueDeclare(
+  &quot;hello&quot;, // name
+  false,   // durable
+  false,   // delete when usused
+  false,   // exclusive
+  false,   // no-wait
+  nil,     // arguments
+)
+failOnError(err, &quot;Failed to declare a queue&quot;)
+</code></pre>
+<p>注意，我们再一次声明了一个队列。因为消费者有可能比生产者先运行，为了想要确保该队列在我们消费消息前就已经存在，我们必须这样做。</p>
+<p>接下来，我们告诉服务器从队列中传递给我们需要消费的消息。鉴于消息将会以异步的方式发送过来，我们在（Go 语言中）一个 goroutine 中的使用管道来接收消息：</p>
+<pre><code class="language-go">msgs, err := ch.Consume(
+  q.Name, // queue
+  &quot;&quot;,     // consumer
+  true,   // auto-ack
+  false,  // exclusive
+  false,  // no-local
+  false,  // no-wait
+  nil,    // args
+)
+failOnError(err, &quot;Failed to register a consumer&quot;)
+
+forever := make(chan bool)
+
+go func() {
+  for d := range msgs {
+    log.Printf(&quot;Received a message: %s&quot;, d.Body)
+  }
+}()
+
+log.Printf(&quot; [*] Waiting for messages. To exit press CTRL+C&quot;)
+&lt;-forever
+</code></pre>
+<p>这里是完整的 <a href="https://github.com/rabbitmq/rabbitmq-tutorials/blob/master/go/receive.go">receive.go</a> 文件。</p>
+<h2 id="作为一个整体">作为一个整体</h2>
+<p>现在我们同时运行两个程序。在一个终端中，运行发布者：</p>
+<pre><code class="language-sh">go run send.go
+</code></pre>
+<p>在另一个终端运行消费者：</p>
+<pre><code class="language-sh">go run receive.go
+</code></pre>
+<p>消费者将打印发布者通过 RabbitMQ 发送过来的消息。消费者会一直运行等待消息（使用 Ctrl-C 来停止），所以可以尝试从不同的终端来运行发布者。</p>
+<p>如果想要查看队列信息，运行命令 <code>rabbitmqctl list_queues</code>。</p>
+<p>接下来，请移步至 <a href="/post/rabbitmq-tutorial-go-2/">教程二</a> 创建一个简单的 <em>工作队列</em>。</p>
+
+                          </div>
+                        </div>
+                        <div class="layout-post-social">
+                          <div class="item reader">
+                            <div id="/post/rabbitmq-tutorial-go-1/" class="leancloud-visitors view"
+                              data-flag-title="RabbitMQ 入门教程（一）- &#34;Hello World!&#34;">
+                              <span class="post-meta-item-text">阅读 </span>
+                              <span class="leancloud-visitors-count"></span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="layout-post-navigation">
+                          <div class="navigation-list">
+                            
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-2/" class="title">
+                                      <h4>RabbitMQ 入门教程（二）- 工作队列</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第二篇，介绍如何将 RabbitMQ 作为工作队列使用。</p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>上一篇</span></div>
+                                  <div class="item">2018-09-29</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://haottr.github.io/post/rabbitmq-tutorial-go-2/"
+                                    style="background-image: url('http://img-haotrr.test.upcdn.net/blog/Greece2.jpg');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            <div class="post-card row">
+                              
+                              <div class="card-content col-8 col-md-9">
+                                <div class="card-body">
+                                  <div class="header">
+                                    <a href="https://haottr.github.io/post/solid-go-design/" class="title">
+                                      <h4>SOLID Go 设计（译）</h4>
+                                    </a>
+                                  </div>
+                                  <div class="inner d-none d-sm-block">
+                                    <div class="abstract">
+                                      <p>接口让我们 Go 开发者描述了我们提供包是做什么的，而不是如何实现的。换个说法就是「解耦」，这确实是我们的目标，因为解耦的软件修改起来更容易。</p>
+
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="card-footer">
+                                  <div class="item"><span>下一篇</span></div>
+                                  <div class="item">2018-07-09</div>
+                                </div>
+                              </div>
+                              <div class="card-thumb col-4 col-md-3">
+                                <div class="thumb">
+                                  <a href="https://haottr.github.io/post/solid-go-design/"
+                                    style="background-image: url('http://img-haotrr.test.upcdn.net/blog/Greece7.png');"></a>
+                                </div>
+                              </div>
+                              
+                            </div>
+
+                            
+                          </div>
+                        </div>
+
+                        <div class="layout-comments"></div>
+                        
+                        <script type="text/javascript" src='https://haottr.github.io/media/scripts/zan.js'></script>
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/av-min.js'></script>
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/Valine.min.js'></script>
+
+<script>
+  var valine = new Valine();
+  valine.init({
+    el: '.layout-comments',
+    appId: 'kyaFrbniElwRf2iVD1a5ts2y-gzGzoHsz',
+    appKey: 'Vjt2F1yKTk5BgEWtCPO4FukL',
+    notify: false,
+    verify: false,
+    visitor: true,
+    avatar: 'mp',
+    placeholder: '加入讨论...'
+  })
+</script>
+                        
+                      </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3 d-none d-lg-block">
+                      <div class="layout-post-sidebar">
+                        <div class="layout-sidebar-item">
+                          <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#hello-world">“Hello World”</a></li>
+<li><a href="#%E5%8F%91%E9%80%81">发送</a></li>
+<li><a href="#%E6%8E%A5%E6%94%B6">接收</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%BA%E4%B8%80%E4%B8%AA%E6%95%B4%E4%BD%93">作为一个整体</a></li>
+</ul>
+</li>
+</ul>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout-totop d-none"><i class="fa fa-angle-up" aria-hidden="true"></i></div>
+
+    <div class="layout-footer">
+
+	<div class="container">
+		<div class="row justify-content-lg-center">
+			<div class="col-12 col-lg-9">
+				<div class="footer">
+					<div class="row">
+						<div class="col-12 col-md-9">
+							<div class="footer-copy">
+								
+								© 2015-2020 Haotrr<span class="px-2">⋅</span>Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> & Theme <a href="https://github.com/insdram/gridea-theme-vant">Vant</a> & Pics <a href="https://www.upyun.com/">UpYun</a>
+								<div class="footer-icp d-none d-sm-inline-block">
+									<span class="px-2">⋅</span>
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-3 d-none d-md-block">
+							<div class="footer-links">
+								
+								
+								<span class="px-2">⋅</span>
+								<span class="footer-links-item">
+									<a href="https://twitter.com/haotrr" target="_blank">
+										<i class="fa fa-twitter" aria-hidden="true"></i>
+									</a>
+								</span>
+								
+								
+								
+								<span class="px-2">⋅</span>
+								<span class="footer-links-item">
+									<a href="https://github.com/haotrr" target="_blank">
+										<i class="fa fa-github" aria-hidden="true"></i>
+									</a>
+								</span>
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src='https://haottr.github.io/media/scripts/main.js'></script>
+
+
+  </div>
+</body>
+<!-- 更进一步的拿来主义，这段代码及一定的 CSS 样式拷贝自 Gridea 的 Next 主题：https://github.com/hsxyhao/gridea-theme-next，😺 -->
+<script>
+  // 拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    // 创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    // 选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    // 复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        console.log('复制操作频率过高');
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+</script>
+
+</html>
