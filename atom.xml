@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://haottr.github.io</id>
+    <id>https://haotrr.github.io</id>
     <title>Haotrr</title>
-    <updated>2020-06-11T05:55:33.884Z</updated>
+    <updated>2020-06-11T06:16:28.764Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://haottr.github.io"/>
-    <link rel="self" href="https://haottr.github.io/atom.xml"/>
+    <link rel="alternate" href="https://haotrr.github.io"/>
+    <link rel="self" href="https://haotrr.github.io/atom.xml"/>
     <subtitle>A beautiful world you deserve.</subtitle>
-    <logo>https://haottr.github.io/images/avatar.png</logo>
-    <icon>https://haottr.github.io/favicon.ico</icon>
+    <logo>https://haotrr.github.io/images/avatar.png</logo>
+    <icon>https://haotrr.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Haotrr</rights>
     <entry>
         <title type="html"><![CDATA[2018 与我]]></title>
-        <id>https://haottr.github.io/post/2018-and-me/</id>
-        <link href="https://haottr.github.io/post/2018-and-me/">
+        <id>https://haotrr.github.io/post/2018-and-me/</id>
+        <link href="https://haotrr.github.io/post/2018-and-me/">
         </link>
         <updated>2018-12-31T15:00:40.000Z</updated>
         <summary type="html"><![CDATA[<p>感谢微博这一年来记录下了我的所思所想，今年用几条微博来回顾我的 2018。</p>
@@ -63,8 +63,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[RabbitMQ 入门教程（六）- RPC]]></title>
-        <id>https://haottr.github.io/post/rabbitmq-tutorial-go-6/</id>
-        <link href="https://haottr.github.io/post/rabbitmq-tutorial-go-6/">
+        <id>https://haotrr.github.io/post/rabbitmq-tutorial-go-6/</id>
+        <link href="https://haotrr.github.io/post/rabbitmq-tutorial-go-6/">
         </link>
         <updated>2018-09-29T08:05:45.000Z</updated>
         <summary type="html"><![CDATA[<p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第六篇，介绍如何使用 RabbitMQ 来构建一个 RPC 系统</p>
@@ -365,8 +365,8 @@ func bodyFrom(args []string) int {
     </entry>
     <entry>
         <title type="html"><![CDATA[RabbitMQ 入门教程（五）- 主题交换机]]></title>
-        <id>https://haottr.github.io/post/rabbitmq-tutorial-go-5/</id>
-        <link href="https://haottr.github.io/post/rabbitmq-tutorial-go-5/">
+        <id>https://haotrr.github.io/post/rabbitmq-tutorial-go-5/</id>
+        <link href="https://haotrr.github.io/post/rabbitmq-tutorial-go-5/">
         </link>
         <updated>2018-09-29T08:05:34.000Z</updated>
         <summary type="html"><![CDATA[<p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第五篇，介绍 RabbitMQ 中较复杂但非常实用的 topic 交换机。</p>
@@ -585,8 +585,8 @@ func main() {
     </entry>
     <entry>
         <title type="html"><![CDATA[RabbitMQ 入门教程（四）- 路由绑定]]></title>
-        <id>https://haottr.github.io/post/rabbitmq-tutorial-go-4/</id>
-        <link href="https://haottr.github.io/post/rabbitmq-tutorial-go-4/">
+        <id>https://haotrr.github.io/post/rabbitmq-tutorial-go-4/</id>
+        <link href="https://haotrr.github.io/post/rabbitmq-tutorial-go-4/">
         </link>
         <updated>2018-09-29T08:05:24.000Z</updated>
         <summary type="html"><![CDATA[<p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第四篇，介绍如何对 RabbitMQ 进行路由绑定。</p>
@@ -871,8 +871,8 @@ func main() {
     </entry>
     <entry>
         <title type="html"><![CDATA[RabbitMQ 入门教程（三）- 发布订阅]]></title>
-        <id>https://haottr.github.io/post/rabbitmq-tutorial-go-3/</id>
-        <link href="https://haottr.github.io/post/rabbitmq-tutorial-go-3/">
+        <id>https://haotrr.github.io/post/rabbitmq-tutorial-go-3/</id>
+        <link href="https://haotrr.github.io/post/rabbitmq-tutorial-go-3/">
         </link>
         <updated>2018-09-29T08:05:01.000Z</updated>
         <summary type="html"><![CDATA[<p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第三篇，介绍 RabbitMQ 的发布订阅模式。</p>
@@ -1137,8 +1137,8 @@ func main() {
     </entry>
     <entry>
         <title type="html"><![CDATA[RabbitMQ 入门教程（二）- 工作队列]]></title>
-        <id>https://haottr.github.io/post/rabbitmq-tutorial-go-2/</id>
-        <link href="https://haottr.github.io/post/rabbitmq-tutorial-go-2/">
+        <id>https://haotrr.github.io/post/rabbitmq-tutorial-go-2/</id>
+        <link href="https://haotrr.github.io/post/rabbitmq-tutorial-go-2/">
         </link>
         <updated>2018-09-29T07:41:27.000Z</updated>
         <summary type="html"><![CDATA[<p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第二篇，介绍如何将 RabbitMQ 作为工作队列使用。</p>
@@ -1490,8 +1490,8 @@ func main() {
     </entry>
     <entry>
         <title type="html"><![CDATA[RabbitMQ 入门教程（一）- "Hello World!"]]></title>
-        <id>https://haottr.github.io/post/rabbitmq-tutorial-go-1/</id>
-        <link href="https://haottr.github.io/post/rabbitmq-tutorial-go-1/">
+        <id>https://haotrr.github.io/post/rabbitmq-tutorial-go-1/</id>
+        <link href="https://haotrr.github.io/post/rabbitmq-tutorial-go-1/">
         </link>
         <updated>2018-09-29T06:47:00.000Z</updated>
         <summary type="html"><![CDATA[<p>本系列是 RabbitMQ 官方教程 Go 版本的中译版本，本文为第一篇，简单介绍 RabbitMQ 最基本的生产-消费者模式。</p>
@@ -1668,8 +1668,8 @@ log.Printf(&quot; [*] Waiting for messages. To exit press CTRL+C&quot;)
     </entry>
     <entry>
         <title type="html"><![CDATA[SOLID Go 设计（译）]]></title>
-        <id>https://haottr.github.io/post/solid-go-design/</id>
-        <link href="https://haottr.github.io/post/solid-go-design/">
+        <id>https://haotrr.github.io/post/solid-go-design/</id>
+        <link href="https://haotrr.github.io/post/solid-go-design/">
         </link>
         <updated>2018-07-09T14:25:37.000Z</updated>
         <summary type="html"><![CDATA[<p>接口让我们 Go 开发者描述了我们提供包是做什么的，而不是如何实现的。换个说法就是「解耦」，这确实是我们的目标，因为解耦的软件修改起来更容易。</p>
